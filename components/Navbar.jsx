@@ -6,12 +6,23 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineMail, AiOutlineMenu } from "react-icons/ai";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { BsPersonLinesFill } from "react-icons/bs";
+import { usePathname } from "next/navigation";
 
 import genericLogo from "../public/assets/generic.png";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   const [shadow, setShadow] = useState(false);
+  const [navBg, setNavBg] = useState("#ecf0f3");
+  const [linkColor, setLinkColor] = useState("#1f2937");
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    pathname === "/talents" || pathname === "/nhmsap"
+      ? setLinkColor("#ecf0f3")
+      : setLinkColor("#1f2937");
+  }, [pathname]);
 
   useEffect(() => {
     const handleShadow = () => {
@@ -39,10 +50,10 @@ const Navbar = () => {
             : "flex justify-between items-center w-full h-full px-6 2xl:px-16"
         }
       >
-        <Image src={genericLogo} width={100} />
+        <Image src={genericLogo} width={100} alt="/" />
 
         <div>
-          <ul className="hidden md:flex">
+          <ul style={{ color: `${linkColor}` }} className="hidden md:flex">
             <Link href="/#home">
               <li className="ml-10 text-sm uppercase hover:underline">Home</li>
             </Link>
@@ -80,7 +91,7 @@ const Navbar = () => {
           className={
             nav
               ? "fixed left-0 top-0 w-[75%] sm:w-[60%] md:w-[30%] h-screen p-10 ease-in duration-500 bg-slate-100"
-              : "fixed left-[-100%] top-0 p-10 ease-in duration-500"
+              : "fixed left-[-150%] top-0 p-10 ease-in duration-500"
           }
         >
           <div>
